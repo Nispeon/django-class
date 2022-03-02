@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>C.R.U.D</title>
+    <style>
+        .container {
+            margin-left: 550px;
+            margin-top: 150px;
+            width: 300px;
+            height: 100px;
+            padding: 15px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Edit</h1>
+    <p style="margin-left:550px;"><a href="/firstexo/">Check data</a></p>
+    <div class="container">
+        <table>
+            <tbody>
+                <form action="/firstexo/update/{{object.id}}" method="POST">
+                    {% csrf_token %}
+                    <tr>
+                        <td> Question ?</td>
+                        <td><input type="text" name="text" value={{object.text}}></td>
+                    </tr>
+                    <tr>
+                        <td><button>Submit</button></td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
