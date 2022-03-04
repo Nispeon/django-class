@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('firstexo/', include('firstexo.urls')),
+    path('', include('rendu.urls')),
     path('admin/', admin.site.urls),
+    path('messenger/', include('messenger.urls')),
 ]
