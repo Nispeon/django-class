@@ -18,6 +18,29 @@
 </head>
 
 <body>
+
+</body>
+
+</html>
+
+{% extends 'base.html' %}
+
+{% block style %}
+        .container {
+            margin-left: 550px;
+            margin-top: 150px;
+            width: 300px;
+            height: 100px;
+            padding: 15px;
+            background-color: aquamarine;
+        }
+{% endblock %}
+
+{% block title %}
+CRUD
+{% endblock %}
+
+{% block content %}
     <h1>Edit</h1>
     <p style="margin-left:550px;"><a href="/firstexo/">Check data</a></p>
     <div class="container">
@@ -36,6 +59,4 @@
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
+{% endblock %}

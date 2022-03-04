@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('rendu.urls')),
     path('admin/', admin.site.urls),
     path('messenger/', include('messenger.urls')),
+    path('auth/', include('login.urls'))
 ]

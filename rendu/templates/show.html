@@ -1,13 +1,10 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{product.title}}</title>
-</head>
-<body>
-<a href="/">< Home</a>
+{% extends 'base.html' %}
+
+{% block title %}
+{{product.title}}
+{% endblock %}
+
+{% block content %}
     <div>
         <h2>{{product.title}}</h2>
         <img src={{product.image}}>
@@ -21,6 +18,9 @@
         <input type="number" name="quantity" id="quantity" placeholder="Quantity" max="{{product.quantity}}" min="0" value="0">
         <button type="submit" id="submit">Add to cart</button>
     </form>
+{% endblock %}
+
+{% block script %}
 <script>
     document.getElementById('submit').addEventListener('click', (e) => {
         if(document.getElementById('quantity').value === "0") {
@@ -29,5 +29,4 @@
         }
     })
 </script>
-</body>
-</html>
+{% endblock %}
