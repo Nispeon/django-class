@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
 {% block style %}
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            width: 100%;
-        }
+.product-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+width: 100%;
+gap: 20px;
+}
 
-        .oos {
-            background: gray;
-        }
+.oos {
+background: gray;
+}
 
-        form > div {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            width: 50%;
-            margin: auto;
-        }
+form > div {
+display: grid;
+grid-template-columns: 1fr;
+gap: 20px;
+width: 50%;
+margin: auto;
+}
 {% endblock %}
 
 {% block title %}
@@ -25,43 +26,65 @@ PaShopify
 {% endblock %}
 
 {% block content %}
-<section class="product-grid">
-{% for product in products %}
+<h2 class="mt-2">Available !</h2>
+
+<section class="product-grid my-4">
+    {% for product in products %}
     {% if product.quantity > 0 %}
-        <div>
-            <h2><a href="/{{product.id}}">{{product.title}}</a></h2>
-            <img src={{product.image}}>
-            <p>{{product.description}}</p>
-            <span>{{product.price}}</span>
+    <div class="card m-auto" style="width: 18rem;">
+        <img src="{{product.image}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <span class="card-title text-success">${{product.price}}</span>
+            <p class="card-text">{{product.description}}</p>
             <p>{{product.quantity}} left in stock</p>
+            <a href="/{{product.id}}" class="btn btn-primary">See page</a>
         </div>
+    </div>
     {%endif%}
-{% endfor %}
+    {% endfor %}
 </section>
 
-<section class="product-grid">
-{% for product in products %}
+<h2>Currently out of stock</h2>
+
+<section class="product-grid my-4">
+    {% for product in products %}
     {% if product.quantity <= 0 %}
-        <div class="oos">
-            <h2>{{product.title}}</h2>
-            <img src={{product.image}}>
-            <p>{{product.description}}</p>
-            <span>{{product.price}}</span>
-            <p>OUT OF STOCK</p>
+    <div class="card m-auto" style="width: 18rem;">
+        <img src="{{product.image}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <span class="card-title text-danger">${{product.price}}</span>
+            <p class="card-text">{{product.description}}</p>
+            <span class="card-title text-danger">OUT OF STOCK</span>
         </div>
+    </div>
     {%endif%}
-{% endfor %}
+    {% endfor %}
 </section>
 
 <form action="create" method="post">
     {% csrf_token %}
-    <div>
-        <input type="text" name="title" placeholder="Product title...">
-        <textarea name="description" placeholder="Product description..."></textarea>
-        <input type="text" name="image" placeholder="Product image...">
-        <input type="number" name="price" placeholder="Product price...">
-        <input type="number" name="quantity" placeholder="Product quantiy...">
-        <button type="submit">Create product</button>
+    <div class="mb-3">
+        <label for="p-title" class="form-label">Product title</label>
+        <input type="text" class="form-control" id="p-title" name="title">
+    </div>
+    <div class="mb-3">
+        <label for="p-desc" class="form-label">Product description</label>
+        <input type="text" class="form-control" id="p-desc" name="description">
+    </div>
+    <div class="mb-3">
+        <label for="p-image" class="form-label">Product image</label>
+        <input type="text" class="form-control" id="p-image" name="image" placeholder="Enter a valid URL..">
+    </div>
+    <div class="mb-3">
+        <label for="p-price" class="form-label">Product price</label>
+        <input type="number" placeholder="$USD" class="form-control" id="p-price" name="price" min="0">
+    </div>
+    <div class="mb-3">
+        <label for="p-quantity" class="form-label">Product quantity</label>
+        <input type="number" class="form-control" id="p-quantity" name="quantity" min="0">
+        <button type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>
 {% endblock %}

@@ -5,25 +5,32 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h2>{{product.title}}</h2>
-        <img src={{product.image}}>
-        <p>{{product.description}}</p>
-        <span>{{product.price}}</span>
+<div class="card m-auto" style="width: 18rem;">
+    <img src="{{product.image}}" class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <span class="card-title text-success">${{product.price}}</span>
+        <p class="card-text">{{product.description}}</p>
         <p>{{product.quantity}} left in stock</p>
     </div>
+</div>
+
+<div class="w-25 m-auto">
     <form action="/cart/{{product.id}}" method="post">
         {% csrf_token %}
-        <label for="quantity">Select quantity to add to cart</label>
-        <input type="number" name="quantity" id="quantity" placeholder="Quantity" max="{{product.quantity}}" min="0" value="0">
-        <button type="submit" id="submit">Add to cart</button>
+        <div class="mb-3">
+            <label for="p-quantity" class="form-label">Product quantity</label>
+            <input type="number" class="form-control" id="p-quantity" name="quantity" min="0" max="{{product.quantity}}" value="0">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
     </form>
+</div>
 {% endblock %}
 
 {% block script %}
 <script>
     document.getElementById('submit').addEventListener('click', (e) => {
-        if(document.getElementById('quantity').value === "0") {
+        if (document.getElementById('quantity').value === "0") {
             alert('Please select an amount of products to add to your cart.')
             e.preventDefault()
         }
